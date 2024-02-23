@@ -76,3 +76,24 @@ name: { type: String, required: true},
 photoUrl: { type: String, default: ''},
 }
 ```
+## Packages
+<ul>
+  <li>Nodemon</li>
+  <li>Morgan</li>
+  <li>Mongoose</li>
+  <li>Express</li>
+  <li>CORS</li>
+</ul>
+
+## Links
+### Git
+<ul>
+  <li><strong>Front-End</strong>: </li>
+  <li><strong>Back-End</strong>: <a href='https://github.com/YaneUlly/acervo-back'>Acervo</a></li>
+  <li><strong>Deploy Link</strong>: TBC</li>
+</ul>
+
+## Author
+<ul>
+  <li><strong>Yane Ully</strong>: <a href='https://github.com/YaneUlly'>GitHub</a> - <a href='https://www.linkedin.com/in/yane-ully-martins/'>Linkedin</a></li>
+</ul>
