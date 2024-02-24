@@ -31,7 +31,7 @@ Acervo is an app for coffee enthusiasts. If you're keen on diving into the world
 ```js
 {
 id: Number,
-coffeeTaste: { type: mongoose.Schema.Types.OjectId,
+coffeeTaste: { type: mongoose.Schema.Types.ObjectId,
 ref: 'CoffeeTaste'}
 }
 ```
@@ -40,7 +40,7 @@ ref: 'CoffeeTaste'}
 ```js
 {
   id: Number,
-  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'UserInfo' },
+  createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'UserAuth' },
   coffeeName: { type: String, required: true },
   region: { type: String, required: true },
   roast: String,
@@ -68,14 +68,6 @@ ref: 'CoffeeTaste'}
 }
 ```
 
-### User Info Model
-```js
-{
-id: Number,
-name: { type: String, required: true},
-photoUrl: { type: String, default: ''},
-}
-```
 ## Packages
 <ul>
   <li>Nodemon</li>
