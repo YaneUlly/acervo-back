@@ -51,8 +51,8 @@ ref: 'CoffeeTaste'}
   flavor: [String],
   body: { type: String, enum: ['aquoso', 'unctuous', 'fatty'] },
   method: String,
-  recipe: [String],
-  description: [String],
+  recipe: String,
+  description: String,
   storeUrl: String,
   coffeeImgUrl: { type: String, default:''}, 
 }
