@@ -1,6 +1,5 @@
 const { Schema, model } = require('mongoose');
 
-// TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userAuthSchema = new Schema({
   name: { type: String, required: true },
   email: {
@@ -17,6 +16,6 @@ const userAuthSchema = new Schema({
   photoUrl: { type: String, default: '' },
 });
 
-const User = model('UserAuth', userAuthSchema);
+const UserAuth = model('UserAuth', userAuthSchema);
 
 module.exports = UserAuth;
