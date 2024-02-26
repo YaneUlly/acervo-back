@@ -73,7 +73,10 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
 // Get all coffee track
 router.get('/coffeetaste', async (req, res, next) => {
   try {
-    const allCoffeeTaste = await CoffeeTaste.find({}).populate('createdBy');
+    const allCoffeeTaste = await CoffeeTaste.find({}).populate(
+      'createdBy',
+      'name photoUrl'
+    );
     res.status(200).json(allCoffeeTaste);
   } catch (error) {
     next(error);
@@ -87,7 +90,10 @@ router.get('/coffeetaste/:id', async (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid' });
     }
-    const coffeeTaste = await CoffeeTaste.findById(id);
+    const coffeeTaste = await CoffeeTaste.findById(id).populate(
+      'createdBy',
+      'name photoUrl'
+    );
     if (!coffeeTaste) {
       return res.status(404).json({ message: 'No project found' });
     }
@@ -136,7 +142,7 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
         coffeeImgUrl,
       },
       { new: true }
-    );
+    ).populate('createdBy', 'name photoUrl');
 
     if (!updatedCoffeeTaste) {
       return res.status(404).json({ message: 'Coffee not found' });
