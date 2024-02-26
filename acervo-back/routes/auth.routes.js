@@ -3,6 +3,7 @@ const UserAuth = require('../models/UserAuth.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
+const fileUploader = require('../config/cloudinary.config');
 
 const saltRounds = 10;
 
@@ -61,7 +62,6 @@ router.post('/signup', async (req, res, next) => {
     next(error);
   }
 });
-
 // User Login
 router.post('/login', async (req, res, next) => {
   const { email, password } = req.body;
@@ -107,4 +107,14 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
   res.json(req.payload);
 });
 
+// Router to upload user image
+router.post('/upload', fileUploader.single('file'), (req, res, next) => {
+  try {
+    console.log('file is:', req.file);
+    res.status(200).json({ photoUrl: req.file.path });
+  } catch (error) {
+    console.log('An error occurred uploading the image', error);
+    res.status(500).json({ message: 'An error occurred' });
+  }
+});
 module.exports = router;
