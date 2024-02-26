@@ -12,6 +12,7 @@ const coffeeTasteSchema = new Schema({
   method: String,
   recipe: String,
   description: String,
+  public: { type: Boolean, default: false },
   storeUrl: String,
   coffeeImgUrl: { type: String, default: '' },
 });
