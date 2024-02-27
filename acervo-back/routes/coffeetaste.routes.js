@@ -74,13 +74,13 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
 });
 
 // Get all coffee track
-router.get('/coffeetaste', async (req, res, next) => {
+router.get('/coffeetaste', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
-    const allCoffeeTaste = await CoffeeTaste.find({}).populate(
-      'createdBy',
-      'name photoUrl'
-    );
-    res.status(200).json(allCoffeeTaste);
+    const userCoffeeTaste = await CoffeeTaste.find({
+      createdBy: userId,
+    }).populate('createdBy', 'name photoUrl');
+    res.status(200).json(userCoffeeTaste);
   } catch (error) {
     next(error);
   }
