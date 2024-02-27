@@ -17,6 +17,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
     method,
     recipe,
     description,
+    public,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
@@ -40,6 +41,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       method,
       recipe,
       description,
+      public,
       storeUrl,
       coffeeImgUrl,
     });
@@ -61,6 +63,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       method: newCoffeeTaste.method,
       recipe: newCoffeeTaste.recipe,
       description: newCoffeeTaste.description,
+      public: newCoffeeTaste.public,
       storeUrl: newCoffeeTaste.storeUrl,
       coffeeImgUrl: newCoffeeTaste.coffeeImgUrl,
     });
@@ -71,31 +74,35 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
 });
 
 // Get all coffee track
-router.get('/coffeetaste', async (req, res, next) => {
+router.get('/coffeetaste', isAuthenticated, async (req, res, next) => {
+  const userId = req.payload._id;
   try {
-    const allCoffeeTaste = await CoffeeTaste.find({}).populate(
-      'createdBy',
-      'name photoUrl'
-    );
-    res.status(200).json(allCoffeeTaste);
+    const userCoffeeTaste = await CoffeeTaste.find({
+      createdBy: userId,
+    }).populate('createdBy', 'name photoUrl');
+    res.status(200).json(userCoffeeTaste);
   } catch (error) {
     next(error);
   }
 });
 
 // Get a specific coffee taste info
-router.get('/coffeetaste/:id', async (req, res, next) => {
+router.get('/coffeetaste/:id', isAuthenticated, async (req, res, next) => {
   const { id } = req.params;
+  const userId = req.payload._id;
+
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid' });
     }
-    const coffeeTaste = await CoffeeTaste.findById(id).populate(
-      'createdBy',
-      'name photoUrl'
-    );
+
+    // Find the coffee by coffee ID and user ID
+    const coffeeTaste = await CoffeeTaste.findOne({
+      _id: id,
+      createdBy: userId,
+    }).populate('createdBy', 'name photoUrl');
     if (!coffeeTaste) {
-      return res.status(404).json({ message: 'No project found' });
+      return res.status(404).json({ message: 'No coffee found' });
     }
     res.json(coffeeTaste);
   } catch (error) {
@@ -117,6 +124,7 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
     method,
     recipe,
     description,
+    public,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
@@ -125,22 +133,10 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid' });
     }
+    const userId = req.payload._id;
     const updatedCoffeeTaste = await CoffeeTaste.findByIdAndUpdate(
-      id,
-      {
-        coffeeName,
-        region,
-        roast,
-        varieties,
-        altitude,
-        process,
-        body,
-        method,
-        recipe,
-        description,
-        storeUrl,
-        coffeeImgUrl,
-      },
+      { _id: id, createdBy: userId },
+      req.body,
       { new: true }
     ).populate('createdBy', 'name photoUrl');
 
@@ -161,7 +157,8 @@ router.delete('/coffeetaste/:id', async (req, res, next) => {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid' });
     }
-    await CoffeeTaste.findByIdAndDelete(id);
+    const userId = req.payload._id;
+    await CoffeeTaste.findOneAndDelete({ _id: id, createdBy: userId });
     res.json({ message: 'Coffee deleted successfully' });
   } catch (error) {
     next(error);

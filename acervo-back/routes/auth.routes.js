@@ -108,10 +108,13 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
 });
 
 // Router to upload user image
-router.post('/upload', fileUploader.single('file'), (req, res, next) => {
+router.post('/upload', fileUploader.single('file'), async (req, res, next) => {
   try {
-    console.log('file is:', req.file);
-    res.status(200).json({ photoUrl: req.file.path });
+    const result = await cloudinary.uploader.upload(req.file.path);
+    const imageUrl = result.secure_url;
+    res.status(200).json({ photoUrl: imageUrl });
+    // console.log('file is:', req.file);
+    // res.status(200).json({ photoUrl: req.file.path });
   } catch (error) {
     console.log('An error occurred uploading the image', error);
     res.status(500).json({ message: 'An error occurred' });
