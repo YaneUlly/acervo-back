@@ -14,7 +14,11 @@ const coffeeTasteSchema = new Schema({
   description: String,
   public: { type: Boolean, default: false },
   storeUrl: String,
-  coffeeImgUrl: { type: String, default: '' },
+  coffeeImgUrl: {
+    type: String,
+    default:
+      'https://i.pinimg.com/originals/15/79/15/157915e18cbeb48505a1cdb78bf8a0e8.jpg',
+  },
 });
 
 module.exports = model('CoffeeTaste', coffeeTasteSchema);

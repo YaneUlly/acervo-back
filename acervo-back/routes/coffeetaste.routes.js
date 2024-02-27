@@ -17,6 +17,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
     method,
     recipe,
     description,
+    public,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
@@ -40,6 +41,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       method,
       recipe,
       description,
+      public,
       storeUrl,
       coffeeImgUrl,
     });
@@ -61,6 +63,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       method: newCoffeeTaste.method,
       recipe: newCoffeeTaste.recipe,
       description: newCoffeeTaste.description,
+      public: newCoffeeTaste.public,
       storeUrl: newCoffeeTaste.storeUrl,
       coffeeImgUrl: newCoffeeTaste.coffeeImgUrl,
     });
@@ -117,6 +120,7 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
     method,
     recipe,
     description,
+    public,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
@@ -138,6 +142,7 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
         method,
         recipe,
         description,
+        public,
         storeUrl,
         coffeeImgUrl,
       },

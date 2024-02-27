@@ -5,7 +5,7 @@ const CoffeeTaste = require('../models/CoffeeTaste.model');
 // Get all Coffees
 router.get('/coffeehub', async (req, res, next) => {
   try {
-    const allCoffees = await CoffeeTaste.find({}).populate(
+    const allCoffees = await CoffeeTaste.find({ public: true }).populate(
       'createdBy',
       'name photoUrl'
     );
