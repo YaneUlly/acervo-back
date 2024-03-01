@@ -25,6 +25,8 @@ const coffeetasteRoutes = require('./routes/coffeetaste.routes');
 app.use('/api', isAuthenticated, coffeetasteRoutes);
 const authRoutes = require('./routes/auth.routes');
 app.use('/auth', authRoutes);
+const quizRoutes = require('./routes/quiz.routes');
+app.use('/api', quizRoutes);
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require('./error-handling')(app);
 
