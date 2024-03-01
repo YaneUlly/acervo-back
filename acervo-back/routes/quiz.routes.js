@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CoffeeTaste = require('../models/CoffeeTaste.model');
 
 // Route to handle the coffee recommendation
-router.post('/quiz', async (req, res) => {
+router.post('/coffeequiz', async (req, res) => {
   try {
     // User answers
     const { method, region, flavor } = req.body;
