@@ -3,13 +3,16 @@ const CoffeeTaste = require('../models/CoffeeTaste.model');
 const mongoose = require('mongoose');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 const UserAuth = require('../models/UserAuth.model');
+const fileUploader = require('../config/cloudinary.config');
 
 // Create a new coffee taste
 router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
   const {
     coffeeName,
     region,
+    country,
     roast,
+    caffeine,
     method,
     varieties,
     altitude,
@@ -19,7 +22,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
     body,
     recipe,
     description,
-    public,
+    share,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
@@ -35,7 +38,9 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       createdBy: userId,
       coffeeName,
       region,
+      country,
       roast,
+      caffeine,
       method,
       varieties,
       altitude,
@@ -45,7 +50,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       body,
       recipe,
       description,
-      public,
+      share,
       storeUrl,
       coffeeImgUrl,
     });
@@ -59,7 +64,9 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       },
       coffeeName: newCoffeeTaste.name,
       region: newCoffeeTaste.region,
+      country: newCoffeeTaste.country,
       roast: newCoffeeTaste.roast,
+      caffeine: newCoffeeTaste.caffeine,
       method: newCoffeeTaste.method,
       varieties: newCoffeeTaste.varieties,
       altitude: newCoffeeTaste.altitude,
@@ -69,7 +76,7 @@ router.post('/coffeetaste', isAuthenticated, async (req, res, next) => {
       body: newCoffeeTaste.body,
       recipe: newCoffeeTaste.recipe,
       description: newCoffeeTaste.description,
-      public: newCoffeeTaste.public,
+      share: newCoffeeTaste.share,
       storeUrl: newCoffeeTaste.storeUrl,
       coffeeImgUrl: newCoffeeTaste.coffeeImgUrl,
     });
@@ -122,7 +129,9 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
   const {
     coffeeName,
     region,
+    country,
     roast,
+    caffeine,
     method,
     varieties,
     altitude,
@@ -132,21 +141,23 @@ router.put('/coffeetaste/:id', async (req, res, next) => {
     body,
     recipe,
     description,
-    public,
+    share,
     storeUrl,
     coffeeImgUrl,
   } = req.body;
 
+  console.log(req.body);
   try {
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: 'Id is not valid' });
     }
     const userId = req.payload._id;
     const updatedCoffeeTaste = await CoffeeTaste.findByIdAndUpdate(
-      { _id: id, createdBy: userId },
+      id,
       req.body,
       { new: true }
     ).populate('createdBy', 'name photoUrl');
+    console.log(updatedCoffeeTaste);
 
     if (!updatedCoffeeTaste) {
       return res.status(404).json({ message: 'Coffee not found' });
@@ -170,6 +181,17 @@ router.delete('/coffeetaste/:id', async (req, res, next) => {
     res.json({ message: 'Coffee deleted successfully' });
   } catch (error) {
     next(error);
+  }
+});
+
+// User upload Coffee Image
+router.post('/upload', fileUploader.single('file'), async (req, res, next) => {
+  try {
+    console.log('file is:', req.file);
+    res.status(200).json({ coffeeImgUrl: req.file.path });
+  } catch (error) {
+    console.log('An error occurred uploading the image', error);
+    res.status(500).json({ message: 'An error occurred' });
   }
 });
 
