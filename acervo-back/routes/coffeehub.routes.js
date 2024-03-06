@@ -6,7 +6,7 @@ const { isAuthenticated } = require('../middleware/jwt.middleware');
 // Get all Coffees
 router.get('/coffeehub', isAuthenticated, async (req, res, next) => {
   try {
-    const allCoffees = await CoffeeTaste.find({ public: true }).populate(
+    const allCoffees = await CoffeeTaste.find({ share: true }).populate(
       'createdBy',
       'name photoUrl'
     );
@@ -30,7 +30,7 @@ router.get('/coffeehub/:id', isAuthenticated, async (req, res, next) => {
     if (!coffee) {
       return res.status(400).json({ message: 'Coffee not found' });
     }
-    if (!coffee.public) {
+    if (!coffee.share) {
       return res.status(403).json({ message: 'This coffee is not public' });
     }
     res.status(200).json(coffee);

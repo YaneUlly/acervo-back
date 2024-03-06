@@ -6,14 +6,16 @@ const CoffeeTaste = require('../models/CoffeeTaste.model');
 router.post('/coffeequiz', async (req, res) => {
   try {
     // User answers
-    const { method, region, flavor } = req.body;
+    const { method, region, roast, caffeine, flavor } = req.body;
     console.log(req.body);
 
     const recommendedCoffee = await CoffeeTaste.findOne({
       method,
       region,
+      roast,
+      caffeine,
       flavor: { $in: flavor },
-      public: true,
+      share: true,
     });
 
     // If there ir no filter criteria
