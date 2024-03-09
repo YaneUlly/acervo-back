@@ -1,7 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const coffeeTasteSchema = new Schema({
-  createdBy: [{ type: Schema.Types.ObjectId, ref: 'UserAuth' }],
+const publicCoffeeTasteSchema = new Schema({
   coffeeName: { type: String, required: true },
   region: {
     type: String,
@@ -59,4 +58,4 @@ const coffeeTasteSchema = new Schema({
   },
 });
 
-module.exports = model('CoffeeTaste', coffeeTasteSchema);
+module.exports = model('PublicCoffeeTaste', publicCoffeeTasteSchema);

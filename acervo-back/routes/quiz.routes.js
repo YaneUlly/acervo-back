@@ -1,24 +1,26 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const CoffeeTaste = require('../models/CoffeeTaste.model');
+const PublicCoffeeTaste = require('../models/PublicCoffeeTaste.model');
 
 // Route to handle the coffee recommendation
 router.post('/coffeequiz', async (req, res) => {
   try {
     // User answers
     const { method, region, roast, caffeine, flavor } = req.body;
-    console.log(req.body);
+    console.log('User answers:', req.body);
 
-    const recommendedCoffee = await CoffeeTaste.findOne({
+    const recommendedCoffee = await PublicCoffeeTaste.findOne({
       method,
       region,
       roast,
       caffeine,
-      flavor: { $in: flavor },
+      flavor,
       share: true,
     });
 
-    // If there ir no filter criteria
+    console.log('Recommended coffee:', recommendedCoffee);
+
+    // If there is no filter criteria
     if (!recommendedCoffee) {
       return res.status(404).json({
         message: 'No coffee recommendation found for the given criteria',
