@@ -108,7 +108,7 @@ router.get('/verify', isAuthenticated, (req, res, next) => {
 });
 
 // Router to upload user image
-router.post('/upload', fileUploader.single('file'), (req, res, next) => {
+router.post('/upload', fileUploader.single('file'), async (req, res, next) => {
   try {
     console.log('file is:', req.file);
     res.status(200).json({ photoUrl: req.file.path });

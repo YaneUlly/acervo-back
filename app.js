@@ -19,6 +19,12 @@ const { isAuthenticated } = require('./middleware/jwt.middleware');
 // 👇 Start handling routes here
 const indexRoutes = require('./routes/index.routes');
 app.use('/api', indexRoutes);
+const quizRoutes = require('./routes/quiz.routes');
+app.use('/api', quizRoutes);
+const wishlistRoutes = require('./routes/wishlist.routes');
+app.use('/api', isAuthenticated, wishlistRoutes);
+const commentRoutes = require('./routes/comment.routes');
+app.use('/api', isAuthenticated, commentRoutes);
 const coffeehubRoutes = require('./routes/coffeehub.routes');
 app.use('/api', isAuthenticated, coffeehubRoutes);
 const coffeetasteRoutes = require('./routes/coffeetaste.routes');
