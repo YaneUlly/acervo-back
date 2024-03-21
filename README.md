@@ -1,45 +1,53 @@
-# Acervo  
+# Acervo
 
 ## Description
-Acervo is an app for coffee enthusiasts. If you're keen on diving into the world of specialty coffee, the Acervo app can guide you in learning how to taste coffees. Here, you can learn the art of tasting specialty coffee, practice by tracking your coffee tastings, save your recipes and coffee experiences, share them with the community, learn about the coffee species, and explore new coffee options. Additionally, if you're unsure where to begin, we offer a coffee quiz to help you choose your first coffee based on your taste and preferences. 
+
+Acervo is an app for coffee enthusiasts. If you're keen on diving into the world of specialty coffee, the Acervo app can guide you in learning how to taste coffees. Here, you can learn the art of tasting specialty coffee, practice by tracking your coffee tastings, save your recipes and coffee experiences, share them with the community, learn about the coffee species, and explore new coffee options. Additionally, if you're unsure where to begin, we offer a coffee quiz to help you choose your first coffee based on your taste and preferences.
 
 ## Routes
+
 ### Coffee Hub Community Routes
-| Method | Route                 | Description                   |
-| ------ | --------------------- | ----------------------------- |
-| GET    | /api/coffeehub        | Returns all coffees           |
-| GET    | /api/coffeehub/:id    | Returns the specified coffee  |
+
+| Method | Route              | Description                  |
+| ------ | ------------------ | ---------------------------- |
+| GET    | /api/coffeehub     | Returns all coffees          |
+| GET    | /api/coffeehub/:id | Returns the specified coffee |
 
 ### User Coffee Taste Track Routes
-| Method | Route                | Description                   |
-| ------ | -------------------- | ----------------------------- |
-| GET    | /api/coffeestaste    | Returns all coffees history   |
-| GET    | /api/coffeetaste/:id | Returns the specified coffee  |
-| POST   | /api/coffeetaste     | Creates a new coffee          |
-| PUT    | /api/coffeetaste/:id | Edits the specified coffee    |
-| DELETE | /api/coffeetaste/:id | Deletes the specified coffee  |
+
+| Method | Route                | Description                  |
+| ------ | -------------------- | ---------------------------- |
+| GET    | /api/coffeestaste    | Returns all coffees history  |
+| GET    | /api/coffeetaste/:id | Returns the specified coffee |
+| POST   | /api/coffeetaste     | Creates a new coffee         |
+| PUT    | /api/coffeetaste/:id | Edits the specified coffee   |
+| DELETE | /api/coffeetaste/:id | Deletes the specified coffee |
 
 ### Comments Routes
-| Method | Route                         | Description                   |
-| ------ | ----------------------------- | ----------------------------- |
-| GET    | /api/coffeehub/:id/comments   | Returns all coffee comments   |
-| POST   | /api/coffeehub/:id/comments   | Creates a new comment         |
-| PUT    | /api/coffeehub/comments/:id   | Edits the user comment        |
-| DELETE | /api/coffeehub/comments/:id   | Deletes the user comment      |
+
+| Method | Route                       | Description                 |
+| ------ | --------------------------- | --------------------------- |
+| GET    | /api/coffeehub/:id/comments | Returns all coffee comments |
+| POST   | /api/coffeehub/:id/comments | Creates a new comment       |
+| PUT    | /api/coffeehub/comments/:id | Edits the user comment      |
+| DELETE | /api/coffeehub/comments/:id | Deletes the user comment    |
 
 ### Wishlist Routes
-| Method | Route                      | Description                          |
-| ------ | -------------------------- | ------------------------------------ |
-| GET    | /api/wishlist              | Returns all coffee from the wishlist |
-| POST   | /api/coffeehub/add/:id     | Add the coffee in the wishlist       |
-| DELETE | /api/coffeehub/remove/:id  | Remove the coffee from the wishlist  |
+
+| Method | Route                     | Description                          |
+| ------ | ------------------------- | ------------------------------------ |
+| GET    | /api/wishlist             | Returns all coffee from the wishlist |
+| POST   | /api/coffeehub/add/:id    | Add the coffee in the wishlist       |
+| DELETE | /api/coffeehub/remove/:id | Remove the coffee from the wishlist  |
 
 ## Quiz Routes
-| Method | Route                | Description             |
-| ------ | -------------------- | ----------------------- |
-| POST   | /api/coffeequiz      | Send the coffee answers |
+
+| Method | Route           | Description             |
+| ------ | --------------- | ----------------------- |
+| POST   | /api/coffeequiz | Send the coffee answers |
 
 ### User Auth Routes
+
 | Method | Route        | Description        |
 | ------ | ------------ | ------------------ |
 | POST   | /auth/signup | Creates a new user |
@@ -47,7 +55,9 @@ Acervo is an app for coffee enthusiasts. If you're keen on diving into the world
 | GET    | /auth/verify | Verifies the JWT   |
 
 ## Models
+
 ### Coffee Hub Model
+
 ```js
 {
 _id: Number,
@@ -57,6 +67,7 @@ ref: 'CoffeeTaste'}
 ```
 
 ### Coffee Taste Model
+
 ```js
 {
   _id: Number,
@@ -115,11 +126,12 @@ ref: 'CoffeeTaste'}
     type: String,
     default:
       'https://i.pinimg.com/originals/15/79/15/157915e18cbeb48505a1cdb78bf8a0e8.jpg',
-  }, 
+  },
 }
 ```
 
 ### Comments Model
+
 ```js
 {
   _id: Number,
@@ -131,6 +143,7 @@ ref: 'CoffeeTaste'}
 ```
 
 ### Wishlist Model
+
 ```js
 {
   _id: Number,
@@ -139,7 +152,8 @@ ref: 'CoffeeTaste'}
 }
 ```
 
-### Public Coffee Taste Model 
+### Public Coffee Taste Model
+
 ```js
 {
  _id: Number,
@@ -202,6 +216,7 @@ ref: 'CoffeeTaste'}
 ```
 
 ### User Auth Model
+
 ```js
 {
   name: { type: String, required: true },
@@ -212,6 +227,7 @@ ref: 'CoffeeTaste'}
 ```
 
 ## Packages
+
 <ul>
   <li>Nodemon</li>
   <li>Morgan</li>
@@ -221,14 +237,17 @@ ref: 'CoffeeTaste'}
 </ul>
 
 ## Links
+
 ### Git
+
 <ul>
   <li><strong>Front-End</strong>: <a href='https://github.com/YaneUlly/acervo-front'>Acervo</a></li>
   <li><strong>Back-End</strong>: <a href='https://github.com/YaneUlly/acervo-back'>Acervo</a></li>
-  <li><strong>Deploy Link</strong>: <a href='https://acervohub.netlify.app/'>Live Acervo</a></li>
+  <li><strong>Deploy Link</strong>: <a>Live Acervo</a></li>
 </ul>
 
 ## Author
+
 <ul>
   <li><strong>Yane Ully</strong>: <a href='https://github.com/YaneUlly'>GitHub</a> - <a href='https://www.linkedin.com/in/yane-ully-martins/'>Linkedin</a></li>
 </ul>
